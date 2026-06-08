@@ -93,7 +93,7 @@ function App() {
     <div className="min-h-screen bg-slate-100 p-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-black tracking-tighter bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent uppercase">
+          <h1 className="text-4xl  font-black tracking-tighter bg-linear-to-b from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent uppercase">
             Auto Reachable
           </h1>
           <p className="text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase mt-1.5 opacity-90">
