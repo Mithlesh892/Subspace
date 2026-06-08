@@ -92,9 +92,14 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-100 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="flex justify-center text-4xl font-bold mb-6 font-mono">
-          Auto Reachable
-        </h1>
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-black tracking-tighter bg-gradient-to-b from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent uppercase">
+            Auto Reachable
+          </h1>
+          <p className="text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase mt-1.5 opacity-90">
+            • Lead Pipeline Automation •
+          </p>
+        </div>
 
         <DomainInput onSubmit={runPipeline} />
 
