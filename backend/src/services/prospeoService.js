@@ -1,12 +1,12 @@
 import axios from "axios";
 
-// Delay function
+// Delay helper
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const getContacts = async (domain) => {
+export const getContacts = async (domain, retries = 3) => {
   try {
-    // Wait for 2 seconds before making the API call
-    await delay(2000);
+    // Delay before every request
+    await delay(5000);
 
     const response = await axios.post(
       "https://api.prospeo.io/search-person",
@@ -28,17 +28,48 @@ export const getContacts = async (domain) => {
 
     return response.data;
   } catch (error) {
+    const status = error.response?.status;
+
     console.error(
-      "Prospeo Error:",
+      `Prospeo Error for ${domain}:`,
       error.response?.data || error.message
     );
+
+    // Handle Rate Limit (429)
+    if (status === 429 && retries > 0) {
+      console.log(
+        `Rate limit exceeded. Retrying in 60 seconds... (${retries} retries left)`
+      );
+
+      await delay(60000); // Wait 60 seconds
+
+      return getContacts(domain, retries - 1);
+    }
 
     return { people: [] };
   }
 };
 
-// Example Usage
+// Example usage
+const domains = [
+  "google.com",
+  "microsoft.com",
+  "amazon.com",
+];
+
 (async () => {
-  const contacts = await getContacts("google.com");
-  console.log(contacts);
+  for (const domain of domains) {
+    console.log(`Processing: ${domain}`);
+
+    const contacts = await getContacts(domain);
+
+    console.log(
+      `${domain}: Found ${contacts.people?.length || 0} contacts`
+    );
+
+    // Extra delay between domains
+    await delay(5000);
+  }
+
+  console.log("All domains processed.");
 })();
